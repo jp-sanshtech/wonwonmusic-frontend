@@ -1,0 +1,13 @@
+.contentDiv {
+  display: flex;
+  padding: 0 1rem;
+  line-height: 1.45;
+  text-align: left;
+  margin: 1rem 0 -1rem;
+}
+
+@media (max-width: 1025px) {
+  .contentDiv {
+    text-align: unset;
+  }
+}

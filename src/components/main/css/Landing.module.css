@@ -1,0 +1,36 @@
+.landingDiv {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black !important;
+  text-decoration: unset;
+}
+
+.mobileDiv {
+  display: none;
+}
+.desktopDiv {
+  display: block;
+}
+
+.desktopDiv,
+.mobileDiv {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 1025px) {
+  .mobileDiv {
+    display: block;
+  }
+  .mobileDiv > p {
+    padding-bottom: 0;
+  }
+  .desktopDiv {
+    display: none;
+  }
+}

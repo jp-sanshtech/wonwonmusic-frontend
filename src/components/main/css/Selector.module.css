@@ -1,0 +1,28 @@
+.title{
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 1rem;
+}
+.title>svg{
+    transition: transform 0.5s;
+}
+.turnArrow{
+    transform: rotate(-90deg);
+}
+.selectorContainer{
+    max-height: 0;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.line{
+    height: calc(100vh * 0.077);
+    cursor: pointer;
+    padding: 0 1rem;
+}
+.line:first-child{
+    border-top: 2px solid black;
+}
+.soldOut{
+    color: grey;
+}

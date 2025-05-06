@@ -1,0 +1,12 @@
+.clickHere {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: inherit;
+  margin: 0 0.5rem;
+  color: black;
+}
+
+@media (max-width: 1025px) {
+}

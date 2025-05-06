@@ -1,0 +1,51 @@
+.radLabel {
+  display: flex;
+  align-items: center;
+  border-radius: 100px;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.radInput {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  z-index: -1;
+}
+
+.radDesign {
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  border: 2px solid black;
+  background: linear-gradient(to right bottom, black, black);
+  position: relative;
+}
+
+.radDesign::before {
+  content: "";
+
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+
+  background: white;
+  /* background: hsl(0, 0%, 90%); */
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.radInput:checked + .radDesign::before {
+  transform: scale(0);
+}
+
+.radText {
+  margin-left: 14px;
+  transition: 0.3s;
+  line-height: 1.45;
+}

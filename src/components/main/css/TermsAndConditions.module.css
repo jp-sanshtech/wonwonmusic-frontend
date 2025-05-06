@@ -1,0 +1,48 @@
+.pageContainer {
+  max-width: 100%;
+  height: 100%;
+}
+.container {
+  height: 100%;
+  position: fixed;
+  max-width: 100%;
+  width: 100%;
+  right: 0;
+  top: 0;
+  z-index: 990;
+  background-color: white;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.titleContainer {
+  flex-direction: row-reverse;
+  min-height: 7.1%;
+  height: 7.1%;
+  padding: 0 1rem;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+ul li {
+  display: list-item;
+}
+
+.disc {
+  display: list-item !important;
+  list-style-position: outside;
+  list-style-type: disc !important;
+  list-style: square !important;
+}
+
+.underline {
+  text-decoration: underline;
+}

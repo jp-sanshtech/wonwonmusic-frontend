@@ -1,0 +1,10 @@
+.container {
+  font-size: 1rem;
+}
+
+@media (max-width: 1025px) {
+  .container {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+}

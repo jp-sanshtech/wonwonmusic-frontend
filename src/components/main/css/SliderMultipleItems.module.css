@@ -1,0 +1,19 @@
+/*********************************
+*** 2) Multiple Items
+*********************************/
+.arrowPrev,
+.arrowNext {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+}
+
+.arrowPrev {
+    left: 5%;
+    cursor: pointer;
+}
+
+.arrowNext {
+    right: 5%;
+    cursor: pointer;
+}

@@ -1,0 +1,40 @@
+.slick-slider,.slick-list,.slick-track,.slick-slide,.slick-slide>div,.slick-slide>div>div{
+    height: 100%;
+}
+
+.slider-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 500;
+    background-color: white;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+}
+.modal-header-container{
+    height: 44px;
+    background-color: black;
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.modal-slider-container{
+    height: calc(100% - 44px);
+}
+.modal-page-number{
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    /* .modal-slider-container>div>div>div>div>div>div{
+        display: flex !important;
+        align-items: center;
+    }
+    .modal-slider-container>div>div>div>div>div>div>img{
+        height: auto !important;
+    } */
+}

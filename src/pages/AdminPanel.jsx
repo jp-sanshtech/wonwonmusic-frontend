@@ -1,0 +1,150 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../components/css/Admin.css";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+
+function AdminPanel({ history }) {
+  const [artists, setArtists] = useState([]);
+  const [newArtist, setNewArtist] = useState({ name: "", instagramUrl: "", order: "" });
+  const [error, setError] = useState("");
+
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+  // Fetch artists from backend
+  const fetchArtists = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/admin/artists`, {
+        withCredentials: true,
+      });
+      setArtists(response.data);
+    } catch (err) {
+      setError("Failed to fetch artists. Please log in.");
+      history.push("/"); // Redirect to login
+    }
+  };
+
+  // Add a new artist
+  const handleAddArtist = async () => {
+    try {
+      await axios.post(
+        `${API_BASE_URL}/api/admin/artists/add`,
+        newArtist,
+        { withCredentials: true }
+      );
+      setNewArtist({ name: "", instagramUrl: "", order: "" });
+      fetchArtists();
+    } catch (err) {
+      setError("Failed to add artist.");
+    }
+  };
+
+  // Delete artist
+  const handleDeleteArtist = async (id) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/api/admin/artists/delete/${id}`, {
+        withCredentials: true,
+      });
+      fetchArtists();
+    } catch (err) {
+      setError("Failed to delete artist.");
+    }
+  };
+
+  // Reorder artists
+  const handleReorder = async (result) => {
+    if (!result.destination) return;
+
+    const reordered = Array.from(artists);
+    const [moved] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, moved);
+    setArtists(reordered);
+
+    try {
+      const updatedOrders = reordered.map((artist, index) => ({
+        _id: artist._id,
+        order: index + 1,
+      }));
+
+      await axios.post(
+        `${API_BASE_URL}/api/admin/artists/reorder`,
+        { reorderedArtists: updatedOrders },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      setError("Failed to reorder artists.");
+    }
+  };
+
+  useEffect(() => {
+    fetchArtists();
+  }, []);
+
+  return (
+    <div className="container mt-5">
+      <h1>Admin Panel</h1>
+      {error && <div className="text-danger">{error}</div>}
+
+      <h2>Current Artists</h2>
+      <DragDropContext onDragEnd={handleReorder}>
+        <Droppable droppableId="artists">
+          {(provided) => (
+            <ul className="list-group mb-4" {...provided.droppableProps} ref={provided.innerRef}>
+              {artists.map((artist, index) => (
+                <Draggable key={artist._id} draggableId={artist._id} index={index}>
+                  {(provided) => (
+                    <li
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <span>
+                        {artist.name} -{" "}
+                        <a href={artist.instagramUrl} target="_blank" rel="noreferrer">
+                          {artist.instagramUrl}
+                        </a>
+                      </span>
+                      <button className="btn btn-danger btn-sm" onClick={() => handleDeleteArtist(artist._id)}>
+                        Delete
+                      </button>
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
+
+      <h2>Add New Artist</h2>
+      <form onSubmit={(e) => { e.preventDefault(); handleAddArtist(); }}>
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Artist Name"
+            value={newArtist.name}
+            onChange={(e) => setNewArtist({ ...newArtist, name: e.target.value })}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Instagram URL"
+            value={newArtist.instagramUrl}
+            onChange={(e) => setNewArtist({ ...newArtist, instagramUrl: e.target.value })}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-success">
+          Add Artist
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default AdminPanel;

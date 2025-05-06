@@ -1,0 +1,22 @@
+.container{
+    height: 100vh;
+    position: fixed;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100vw;
+    right: 0;
+    top: 0;
+    z-index: 990;
+    background-color: black;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    justify-content: center;
+    align-items: center;
+}
+.closeBtn{
+    color: white;
+    font-size: 2rem;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}

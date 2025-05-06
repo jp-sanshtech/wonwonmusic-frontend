@@ -1,0 +1,11 @@
+.modalSwiperContainer{
+    height: 100%;
+}
+.topBar{
+    height: 44px;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: black;
+    align-items: center;
+    padding: 0 1%;
+}
