@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../components/css/Admin.css";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { useNavigate } from "react-router-dom"; // ✅ react-router v6
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -11,29 +11,34 @@ function AdminPanel() {
   const [newArtist, setNewArtist] = useState({ name: "", instagramUrl: "", order: "" });
   const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // ✅ Correct hook usage
+  const navigate = useNavigate();
 
-  // ✅ Fetch artists
-  const fetchArtists = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/admin/artists`, {
-        withCredentials: true,
-      });
-      setArtists(response.data);
-    } catch (err) {
-      setError("Failed to fetch artists. Please log in.");
-      navigate("/"); // ✅ Redirect on unauthorized
+  const token = localStorage.getItem("token");
+
+  // Redirect if no token
+  useEffect(() => {
+    if (!token) navigate("/");
+  }, [token, navigate]);
+
+  const authHeader = {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   };
 
-  // ✅ Add artist
+  const fetchArtists = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/admin/artists`, authHeader);
+      setArtists(response.data);
+    } catch (err) {
+      setError("Failed to fetch artists. Please log in.");
+      navigate("/");
+    }
+  };
+
   const handleAddArtist = async () => {
     try {
-      await axios.post(
-        `${API_BASE_URL}/api/admin/artists/add`,
-        newArtist,
-        { withCredentials: true }
-      );
+      await axios.post(`${API_BASE_URL}/api/admin/artists/add`, newArtist, authHeader);
       setNewArtist({ name: "", instagramUrl: "", order: "" });
       fetchArtists();
     } catch (err) {
@@ -41,19 +46,15 @@ function AdminPanel() {
     }
   };
 
-  // ✅ Delete artist
   const handleDeleteArtist = async (id) => {
     try {
-      await axios.delete(`${API_BASE_URL}/api/admin/artists/delete/${id}`, {
-        withCredentials: true,
-      });
+      await axios.delete(`${API_BASE_URL}/api/admin/artists/delete/${id}`, authHeader);
       fetchArtists();
     } catch (err) {
       setError("Failed to delete artist.");
     }
   };
 
-  // ✅ Reorder artists
   const handleReorder = async (result) => {
     if (!result.destination) return;
 
@@ -68,11 +69,9 @@ function AdminPanel() {
         order: index + 1,
       }));
 
-      await axios.post(
-        `${API_BASE_URL}/api/admin/artists/reorder`,
-        { reorderedArtists: updatedOrders },
-        { withCredentials: true }
-      );
+      await axios.post(`${API_BASE_URL}/api/admin/artists/reorder`, {
+        reorderedArtists: updatedOrders
+      }, authHeader);
     } catch (err) {
       setError("Failed to reorder artists.");
     }
@@ -129,7 +128,7 @@ function AdminPanel() {
           <input
             type="text"
             className="form-control"
-            placeholder="talent Name"
+            placeholder="Talent Name"
             value={newArtist.name}
             onChange={(e) => setNewArtist({ ...newArtist, name: e.target.value })}
             required
