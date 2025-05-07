@@ -78,6 +78,8 @@ const Home = () => {
       <Line type="bottom-line" />
       <Line type="bottom-line" />
       <Line type="bottom-line" />
+      <Line type="bottom-line" />
+      <Line type="bottom-line" />
     </>
   );
 };
