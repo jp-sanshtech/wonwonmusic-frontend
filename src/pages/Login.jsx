@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import "../components/css/Login.css"; // Adjust path if needed
+import "../components/css/Login.css";
 import { useNavigate } from "react-router-dom";
+
+// ✅ Use the environment variable for the backend API
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -14,17 +17,17 @@ function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        credentials: "include", // Important for session cookie
+        credentials: "include", // Needed to send cookies
         body: JSON.stringify({ username, password }),
       });
 
       if (response.ok) {
-        navigate("/admin-panel"); // Redirect on success
+        navigate("/admin-panel");
       } else {
         const data = await response.json();
         setError(data.error || "Login failed");
