@@ -13,7 +13,7 @@ const Home = () => {
       </Line>
 
       <Line type="bottom-line">
-        <NavLink to="/artists/" className={classes.navLink}>
+        <NavLink to="/talent/" className={classes.navLink}>
           talent
         </NavLink>
       </Line>

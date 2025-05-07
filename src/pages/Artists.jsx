@@ -14,7 +14,7 @@ export default function Artists() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        console.log("Fetching artists...");
+        console.log("Fetching talent...");
         const response = await fetch(`${API_BASE_URL}/api/artists`, {
           method: "GET",
           headers: {

@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../components/css/Admin.css";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useNavigate } from "react-router-dom"; // ✅ react-router v6
 
-function AdminPanel({ history }) {
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+function AdminPanel() {
   const [artists, setArtists] = useState([]);
   const [newArtist, setNewArtist] = useState({ name: "", instagramUrl: "", order: "" });
   const [error, setError] = useState("");
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const navigate = useNavigate(); // ✅ Correct hook usage
 
-  // Fetch artists from backend
+  // ✅ Fetch artists
   const fetchArtists = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/admin/artists`, {
@@ -19,11 +22,11 @@ function AdminPanel({ history }) {
       setArtists(response.data);
     } catch (err) {
       setError("Failed to fetch artists. Please log in.");
-      history.push("/"); // Redirect to login
+      navigate("/"); // ✅ Redirect on unauthorized
     }
   };
 
-  // Add a new artist
+  // ✅ Add artist
   const handleAddArtist = async () => {
     try {
       await axios.post(
@@ -38,7 +41,7 @@ function AdminPanel({ history }) {
     }
   };
 
-  // Delete artist
+  // ✅ Delete artist
   const handleDeleteArtist = async (id) => {
     try {
       await axios.delete(`${API_BASE_URL}/api/admin/artists/delete/${id}`, {
@@ -50,7 +53,7 @@ function AdminPanel({ history }) {
     }
   };
 
-  // Reorder artists
+  // ✅ Reorder artists
   const handleReorder = async (result) => {
     if (!result.destination) return;
 
@@ -84,7 +87,7 @@ function AdminPanel({ history }) {
       <h1>Admin Panel</h1>
       {error && <div className="text-danger">{error}</div>}
 
-      <h2>Current Artists</h2>
+      <h2>Current talent</h2>
       <DragDropContext onDragEnd={handleReorder}>
         <Droppable droppableId="artists">
           {(provided) => (
@@ -104,7 +107,10 @@ function AdminPanel({ history }) {
                           {artist.instagramUrl}
                         </a>
                       </span>
-                      <button className="btn btn-danger btn-sm" onClick={() => handleDeleteArtist(artist._id)}>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleDeleteArtist(artist._id)}
+                      >
                         Delete
                       </button>
                     </li>
@@ -117,13 +123,13 @@ function AdminPanel({ history }) {
         </Droppable>
       </DragDropContext>
 
-      <h2>Add New Artist</h2>
+      <h2>Add New talent</h2>
       <form onSubmit={(e) => { e.preventDefault(); handleAddArtist(); }}>
         <div className="mb-3">
           <input
             type="text"
             className="form-control"
-            placeholder="Artist Name"
+            placeholder="talent Name"
             value={newArtist.name}
             onChange={(e) => setNewArtist({ ...newArtist, name: e.target.value })}
             required
@@ -140,7 +146,7 @@ function AdminPanel({ history }) {
           />
         </div>
         <button type="submit" className="btn btn-success">
-          Add Artist
+          Add talent
         </button>
       </form>
     </div>
