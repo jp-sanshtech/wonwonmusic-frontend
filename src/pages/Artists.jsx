@@ -49,7 +49,7 @@ export default function Artists() {
     <>
       <BackButton />
       {loading ? (
-        <p style={{ textAlign: "center" }}>Loading artists...</p>
+        <p style={{ textAlign: "center" }}>loading talent...</p>
       ) : error ? (
         <p style={{ color: "red", textAlign: "center" }}>{error}</p>
       ) : artists.length > 0 ? (
