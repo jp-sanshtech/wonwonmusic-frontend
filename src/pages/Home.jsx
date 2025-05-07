@@ -14,7 +14,7 @@ const Home = () => {
 
       <Line type="bottom-line">
         <NavLink to="/artists/" className={classes.navLink}>
-          artists
+          talent
         </NavLink>
       </Line>
 
@@ -30,7 +30,7 @@ const Home = () => {
         </a>
       </Line>
 
-      <Line type="bottom-line">
+      {/* <Line type="bottom-line">
         <a
           href="https://www.tiktok.com/@wonwonleywonmusic?_t=ZT-8t4cCGNhE3a&_r=1"
           target="_blank"
@@ -52,7 +52,7 @@ const Home = () => {
         >
           youtube
         </a>
-      </Line>
+      </Line> */}
 
       <Line type="bottom-line">
         <NavLink to="/contactus/" className={classes.navLink}>
