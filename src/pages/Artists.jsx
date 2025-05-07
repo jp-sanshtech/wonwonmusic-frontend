@@ -3,6 +3,9 @@ import classes from "../components/css/Home.module.css";
 import Line from "../components/main/Line.jsx";
 import BackButton from "../components/main/BackButton.jsx";
 
+// ✅ Use environment variable (VITE_API_URL)
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function Artists() {
   const [artists, setArtists] = useState([]);
   const [error, setError] = useState(null);
@@ -12,7 +15,7 @@ export default function Artists() {
     const fetchArtists = async () => {
       try {
         console.log("Fetching artists...");
-        const response = await fetch("http://localhost:5000/api/artists", {
+        const response = await fetch(`${API_BASE_URL}/api/artists`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -66,7 +69,6 @@ export default function Artists() {
         <p style={{ textAlign: "center" }}>No artists found.</p>
       )}
 
-      {/* Optional: Adding extra empty lines */}
       <Line type="bottom-line" />
       <Line type="bottom-line" />
       <Line type="bottom-line" />
