@@ -14,7 +14,7 @@ export default function Artists() {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        console.log("Fetching talent...");
+        console.log("fetching artists...");
         const response = await fetch(`${API_BASE_URL}/api/artists`, {
           method: "GET",
           headers: {
@@ -49,7 +49,7 @@ export default function Artists() {
     <>
       <BackButton />
       {loading ? (
-        <p style={{ textAlign: "center" }}>loading talent...</p>
+        <p style={{ textAlign: "center" }}>loading artists...</p>
       ) : error ? (
         <p style={{ color: "red", textAlign: "center" }}>{error}</p>
       ) : artists.length > 0 ? (
