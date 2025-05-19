@@ -1,9 +1,16 @@
 .logo {
-  height: 100%; /* Match the parent container's height */
-  width: auto; /* Maintain the aspect ratio */
-  display: block; /* Align properly */
-  margin: 0 auto; /* Center the logo horizontally */
-  object-fit: contain; /* Ensure the logo scales appropriately without distortion */
+  height: 44.8px; /* default size for desktop */
+  width: auto;
+  display: block;
+  object-fit: contain;
+  margin-left: -7.5px; /* moved from inline */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .logo {
+    height: 33px; /* smaller logo on mobile */
+  }
 }
 
 .head {
