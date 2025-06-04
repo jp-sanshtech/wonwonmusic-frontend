@@ -44,7 +44,7 @@ const Home = () => {
 
       <Line type="bottom-line">
         <a
-          href="https://www.youtube.com/@wonwonleywonmusic"
+          href="https://www.youtube.com/@wonwonleywon"
           target="_blank"
           rel="noopener noreferrer"
           className={classes.navLink}
