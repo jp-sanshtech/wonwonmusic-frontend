@@ -13,7 +13,7 @@ const Aboutus = () => {
         style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '1rem' }}
       >
         <p>
-          To become one of our artists, work with us, hire our artists, or for any other questions, email us at <a href="mailto:support@wonwonleywonmusic.com">support@wonwonleywonmusic.com</a>.
+          To become one of our artists, work with us, hire our artists, or for any other questions, email us at <a href="mailto:support@wonwonleywonmusic.com" style={{ color: "black", textDecoration: "underline" }}>support@wonwonleywonmusic.com</a>.
         </p>
       </Line>
     </div>
