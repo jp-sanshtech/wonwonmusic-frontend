@@ -7,24 +7,19 @@ import classes from '../components/css/Home.module.css';
 const Contactus = () => {
   return (
     <>
+    <div className={classes.links}>
+
       <BackButton />
-      <Line type="bottom-lin">
-        <div className={classes.contactContainer}>
-          <p 
-            className={classes.contactText} 
-            style={{ marginTop: "28px", lineHeight: "1.47", padding: "0 1px" }} // Adjust lineHeight and padding for better spacing
-          >
-           to work with us or for any other questions, email us at{' '}
-            <a 
-              href="mailto:support@wonwonleywonmusic.com" 
-              className={classes.emailLink} 
-              style={{ color: "black", marginTop: "25px" }}
-            >
-              support@wonwonleywonmusic.com
-            </a>
-          </p>
-        </div>
+   <Line
+        to="/world/oneofoneluxury"
+        className={classes.navLink}
+        style={{ flexDirection: 'column', alignItems: 'flex-start', padding: '1rem' }}
+        >
+        <p>
+          To become one of our artists, work with us, hire our artists, or for any other questions, email us at <a href="mailto:support@wonwonleywonmusic.com" style={{ color: "black", textDecoration: "underline" }}>support@wonwonleywonmusic.com</a>.
+        </p>
       </Line>
+        </div>
     </>
   );
 };
